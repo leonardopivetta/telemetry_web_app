@@ -1,10 +1,17 @@
 import React from 'react';
+import { LoginPage } from './pages/Login.page';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className='h-screen w-screen bg-background flex justify-center'>
-      <h1 className='text-3xl my-auto animate-waiting'>Still in progress :)</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route path="login" element={<LoginPage/>} />
+          <Route index element={<LoginPage/>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
