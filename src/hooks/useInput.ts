@@ -1,12 +1,15 @@
-import React, {useState, useRef} from "react";
+import {useState, FormEvent, ChangeEventHandler} from "react";
 
-export const useInput = (initialState?: string): [string, React.Ref<HTMLInputElement>] => {
-    const [text, setText] = useState(initialState ?? "");
-    const element = useRef<HTMLInputElement>(null);
-
-    element.current?.addEventListener("input", (e)=> {
-        setText(element.current?.value ?? "");
-    })
-
-    return [text, element];
-}
+/** Hook for the input from Input HTML elements
+ * @returns [value, onChange]
+ */
+export const useInput = (initialValue?:string): [string, ChangeEventHandler<HTMLInputElement>] => {
+    const [value, setValue] = useState(initialValue??"");
+  
+    return [
+        value,
+        (event: FormEvent<HTMLInputElement>) => {
+            setValue(event?.currentTarget?.value ?? "");
+        }
+    ];
+  };

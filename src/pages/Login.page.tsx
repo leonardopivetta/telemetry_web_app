@@ -3,16 +3,20 @@ import { login } from "../firebase/firebase";
 import { useAuth } from "../hooks/useAuth";
 import {useInput} from "../hooks/useInput"
 
+/** LoginPage react component  */
 export const LoginPage = () => {
-    const [emailText, emailRef] = useInput();
-    const [passwodText, passwordRef] = useInput();
+    const [email, emailChange] = useInput();
+    const [password, passwordChange] = useInput();
     const [error, setError] = useState<string|null>(null);
 
-
+    // Handles the submit of the form
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        // Stops the propragation of the submit
         e.preventDefault();
+        // Removes any previous error
         setError(null);
-        login(emailText, passwodText).catch(e => setError(e.message));
+        // Tryies the login and if it fails, it sets the error
+        login(email,password).catch(e => setError(e.message));
     };
 
     return <div className="h-screen flex flex-col container mx-auto justify-center">
@@ -26,8 +30,8 @@ export const LoginPage = () => {
                         <label className="text-lg py-2">Password:</label>
                     </div>
                     <div className="flex flex-col flex-grow space-y-2 ">
-                        <input type="text" name="email" id="email" ref={emailRef} className="flex-grow rounded-3xl text-black p-2" />
-                        <input type="password" name="password" id="pwd" ref={passwordRef} className="flex-grow rounded-3xl text-black p-2" />
+                        <input type="text" name="email" id="email" onChange={emailChange} className="flex-grow rounded-3xl text-black p-2" />
+                        <input type="password" name="password" id="pwd" onChange={passwordChange} className="flex-grow rounded-3xl text-black p-2" />
                     </div>
                 </div>
                 <input className="border border-white rounded-3xl mt-5 py-2 hover:text-black hover:bg-white duration-200" type="submit" value={"Invia"}></input>
