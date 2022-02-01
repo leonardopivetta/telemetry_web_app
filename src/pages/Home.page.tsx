@@ -1,13 +1,15 @@
-import { FunctionComponent, useState } from "react"
+import { FunctionComponent, useEffect, useState } from "react"
 import { BigButton } from "../components/bigButton"
 import logo from "../assets/logo.png"
+import { getSessions } from "../firebase/firestore"
+import { Session } from "../types/Session"
 
 /** 
  * @param setSearc The function for updating the search value
  * @returns JSX element for the search bar
  */
 const SearchBar: FunctionComponent<{setSearch: Function}> = props => {
-    return <div className="w-full px-2 py-2">
+    return <div className="w-full py-2">
         <input type="text" className="bg-white w-full rounded-3xl text-black p-2 placeholder:text-gray-500 transform hover:scale-102 focus:scale-102 duration-200" 
             placeholder="Search..." onChange={e => props.setSearch(e.target.value)}/>
     </div>
@@ -18,21 +20,37 @@ const SearchBar: FunctionComponent<{setSearch: Function}> = props => {
  * @param filterText The text immitted by the user in the search bar
  * @returns JSX element for the list of the sessions
  */
-const Table: FunctionComponent<{ data: Array<{}>, filterText: string }> = props => {
-    return <div className="w-full flex-grow px-2">
-        <table className="w-full table-auto rounded-xl border">
-            <thead className="table-header-group">
-                <th>Name</th>
-                <th>Date</th>
-                <th>Position</th>
-                <th>#Laps</th>
-                <th>Duration</th>
+const Table: FunctionComponent<{ data: Array<Session>, filterText: string }> = props => {
+    return <div className="w-full hfull flex-grow border rounded-xl overflow-y-auto mb-5">
+        <table className="table-auto border-collapse min-w-full max-h-full">
+            <thead className="table-header-group text-left">
+                <tr className="bg-slate-700 ">
+                    <th className="pl-2 font-bold">Name</th>
+                    <th className="pl-2 font-bold">Date</th>
+                    <th className="pl-2 font-bold">Position</th>
+                    <th className="pl-2 font-bold">#Laps</th>
+                    <th className="pl-2 font-bold">Duration (mm:ss)</th>
+                    <th className="pl-2 font-bold">Download</th>
+                </tr>
             </thead>
-            {props.data.filter(item => item.toString().toLowerCase().includes(props.filterText.toLowerCase())).map(item => {
-                    return <tr className="table-row-group">
-                        <td className="border px-4 py-2">{item.toString()}</td>
+            <tbody className="divide-y divide-slate-300">
+            {props.data
+                .filter(e => e.name.toLowerCase().includes(props.filterText.toLowerCase()) ||
+                 e.from.toDate().toLocaleDateString("it-IT").toLowerCase().includes(props.filterText.toLowerCase()))
+                .map(session => {
+                    const duration = session.to.seconds - session.from.seconds;
+                    const minutes = Math.floor(duration / 60);
+                    const seconds = duration % 60;
+                    return <tr className="py-1" key={session.id}>
+                        <td className="pl-2">{session.name}</td>
+                        <td className="pl-2">{session.from.toDate().toLocaleDateString("it-IT")}</td>
+                        <td className="pl-2">{session.position.latitude}</td>
+                        <td className="pl-2">{session.nLaps}</td>
+                        <td className="pl-2">{minutes}:{('0'+seconds).slice(-2)}</td>
+                        <td className="pl-2">{/* TODO missing icon */}</td>
                     </tr>
                 })}
+            </tbody>
         </table>
     </div>
 }
@@ -43,9 +61,16 @@ const Table: FunctionComponent<{ data: Array<{}>, filterText: string }> = props 
 const LeftSection = () => {
     // Hook state for the search text
     const [searchText, setSearchText] = useState("");
-    return <div className="h-full flex flex-col">
+    // Hook state for the list of the sessions
+    const [data, setData] = useState<Array<Session>>([]);
+    useEffect(() => {
+        // Get the list of the sessions from Firestore and update the state
+        getSessions().then(setData);
+    }, []);
+
+    return <div className="h-full flex flex-col pt-3">
         <SearchBar setSearch={setSearchText}/>
-        <Table data={[]} filterText={searchText}/>
+        <Table data={data} filterText={searchText}/>
     </div>
 }
 
@@ -56,7 +81,10 @@ const LeftSection = () => {
 const RightSection = () => {
     return <div className="mx-auto w-full max-w-full h-full px-5 flex flex-col">
         <div className="space-y-5 mt-6 flex-grow flex flex-col overflow-y-auto px-3 overflow-x-clip">
-            <BigButton name="realtime" onClick={()=>{}}></BigButton>
+            <BigButton name="realtime" onClick={async ()=>{
+              const sessions = await getSessions();
+              console.log(sessions);
+            }}></BigButton>
             <BigButton name="realtime 2" onClick={()=>{}}></BigButton>
             <BigButton name="realtime 3" onClick={()=>{}}></BigButton>
         </div>
