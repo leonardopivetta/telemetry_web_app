@@ -1,5 +1,6 @@
 import { FunctionComponent, useState } from "react"
 import { BigButton } from "../components/bigButton"
+import logo from "../assets/logo.png"
 
 /** 
  * @param setSearc The function for updating the search value
@@ -53,10 +54,15 @@ const LeftSection = () => {
  */
 
 const RightSection = () => {
-    return <div className="my-auto mx-auto">
-        <BigButton name="realtime" onClick={()=>{}}></BigButton>
-        <BigButton name="realtime 2" onClick={()=>{}}></BigButton>
-        <BigButton name="realtime 3" onClick={()=>{}}></BigButton>
+    return <div className="mx-auto w-full max-w-full h-full px-5 flex flex-col">
+        <div className="space-y-5 mt-6 flex-grow flex flex-col overflow-y-auto px-3 overflow-x-clip">
+            <BigButton name="realtime" onClick={()=>{}}></BigButton>
+            <BigButton name="realtime 2" onClick={()=>{}}></BigButton>
+            <BigButton name="realtime 3" onClick={()=>{}}></BigButton>
+        </div>
+        <div className="mb-5 mt-3">
+            <img src={logo} alt="Eagle logo" className="w-2/3 mx-auto my-auto"/>
+        </div>
     </div>
 }
 
@@ -70,7 +76,7 @@ export const Home = () => {
                 <LeftSection />
             </div>
         </div>
-        <div className="w-1/3 bg-violet-600">
+        <div className="w-1/3">
             <div className="w-full h-screen flex flex-col">
                 <RightSection />
             </div>
