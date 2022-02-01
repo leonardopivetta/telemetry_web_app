@@ -18,6 +18,9 @@ module.exports = {
       },
       animation: {
         'waiting': 'waiting ease-in-out 3s infinite',
+      },
+      scale: {
+        '102': '1.02',
       }
     },
     fontFamily: {
