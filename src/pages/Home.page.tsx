@@ -8,7 +8,7 @@ import logo from "../assets/logo.png"
  */
 const SearchBar: FunctionComponent<{setSearch: Function}> = props => {
     return <div className="w-full px-2 py-2">
-        <input type="text" className="bg-white w-full rounded-3xl text-black p-2 placeholder:text-gray-500" 
+        <input type="text" className="bg-white w-full rounded-3xl text-black p-2 placeholder:text-gray-500 transform hover:scale-102 focus:scale-102 duration-200" 
             placeholder="Search..." onChange={e => props.setSearch(e.target.value)}/>
     </div>
 }
