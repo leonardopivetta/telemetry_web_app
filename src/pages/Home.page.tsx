@@ -1,4 +1,5 @@
 import { FunctionComponent, useState } from "react"
+import { BigButton } from "../components/bigButton"
 
 /** 
  * @param setSearc The function for updating the search value
@@ -53,7 +54,9 @@ const LeftSection = () => {
 
 const RightSection = () => {
     return <div className="my-auto mx-auto">
-        RightSection
+        <BigButton name="realtime" onClick={()=>{}}></BigButton>
+        <BigButton name="realtime 2" onClick={()=>{}}></BigButton>
+        <BigButton name="realtime 3" onClick={()=>{}}></BigButton>
     </div>
 }
 
