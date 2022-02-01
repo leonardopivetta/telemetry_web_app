@@ -1,5 +1,6 @@
-import { collection, getDocs, QuerySnapshot } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, QuerySnapshot, Timestamp, where } from "firebase/firestore";
 import { Session } from "../types/Session";
+import { Setup } from "../types/Setup";
 import { firestore } from "./firebase";
 
 /**
@@ -22,5 +23,31 @@ async function getSessions(): Promise<Array<Session>> {
     }).catch(error => {console.error(error); return [];});
 }
 
+/**
+ * @param date The date of the required setup
+ * @returns the setup from Firestore in the collection "Setups" or undefined if not found
+ */
+async function getSetup(date: Timestamp): Promise<Setup | undefined> {
+    const setupPath = collection(firestore, "Setups");
+    // Gets the first setup update before the given date
+    const queryLastUpdate = query(
+        setupPath, 
+        where("date", "<=", date), 
+        orderBy("date", "desc"),
+        limit(1)
+    );
+    return getDocs(queryLastUpdate).then(querySnapshot => {
+        // If there is no setup update before the given date, returns undefined
+        if (querySnapshot.docs.length === 0) {
+            return undefined;
+        }
+        const setup: Setup = {
+            date: querySnapshot.docs[0].get("date"),
+            camber: querySnapshot.docs[0].get("camber"),
+            toe: querySnapshot.docs[0].get("toe")
+        };
+        return setup;
+    }).catch(error => {console.error(error); return undefined;});
+}
 
-export {getSessions};
+export {getSessions, getSetup};

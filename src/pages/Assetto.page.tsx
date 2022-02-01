@@ -1,4 +1,9 @@
-const TopView: React.FC<{}> = props => {
+import { Setup } from "../types/Setup"
+import { useEffect, useState } from "react"
+import { getSetup } from "../firebase/firestore"
+import { Timestamp } from "firebase/firestore"
+
+const TopView: React.FC<{setup: Setup}> = props => {
     return <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 538.79 479.82" className="h-full w-full mx-auto my-auto"
@@ -6,7 +11,7 @@ const TopView: React.FC<{}> = props => {
             <defs>
                 <style>
                     {
-                        ".cls-1,.cls-3,.cls-4{fill:none;stroke:#f6f6f6;stroke-miterlimit:10}.cls-2,.cls-5{fill:#fff}.cls-3{stroke-dasharray:11.7 11.7}.cls-4{stroke-dasharray:11.32 11.32}.cls-5{font-size:12px;font-family:MyriadPro-Regular,Myriad Pro}.cls-6{letter-spacing:-.01em}"
+                        ".cls-1,.cls-3,.cls-4{fill:none;stroke:#f6f6f6;stroke-miterlimit:10}.cls-2,.cls-5{fill:#fff}.cls-3{stroke-dasharray:11.7 11.7}.cls-4{stroke-dasharray:11.32 11.32}.cls-5{font-size:12px;}.cls-6{letter-spacing:-.01em}"
                     }
                 </style>
             </defs>
@@ -25,7 +30,7 @@ const TopView: React.FC<{}> = props => {
                     <path className="cls-4" d="m108.31 399.45-60.78-115.1" />
                     <path className="cls-1" d="m44.88 279.35-2.8-5.31" />
                     <text className="cls-5" transform="translate(71.24 291.73)">
-                        {"deg BL"}
+                        {props.setup.toe.backLeft+"º"}
                     </text>
                     <path className="cls-2" d="M407.85 423.73V283.02" />
                     <path className="cls-1" d="M407.85 423.73v-6" />
@@ -36,7 +41,7 @@ const TopView: React.FC<{}> = props => {
                     <path className="cls-4" d="m417.2 408.42 60.78-115.09" />
                     <path className="cls-1" d="m480.62 288.32 2.8-5.3" />
                     <text className="cls-5" transform="translate(421.01 300.7)">
-                        {"deg BR"}
+                        {props.setup.toe.backRight+"º"}
                     </text>
                     <path className="cls-2" d="M117.02 140.95V.23" />
                     <path className="cls-1" d="M117.02 140.95v-6" />
@@ -47,7 +52,7 @@ const TopView: React.FC<{}> = props => {
                     <path className="cls-4" d="M107.68 125.63 46.9 10.54" />
                     <path className="cls-1" d="M44.26 5.54 41.45.23" />
                     <text className="cls-5" transform="translate(70.61 17.92)">
-                        {"deg FL"}
+                        {props.setup.toe.frontLeft+"º"}
                     </text>
                     <path className="cls-2" d="M415.02 140.95V.23" />
                     <path className="cls-1" d="M415.02 140.95v-6" />
@@ -58,7 +63,7 @@ const TopView: React.FC<{}> = props => {
                     <path className="cls-4" d="m424.37 125.63 60.78-115.09" />
                     <path className="cls-1" d="m487.79 5.54 2.8-5.31" />
                     <text className="cls-5" transform="translate(428.18 17.92)">
-                        {"deg FR"}
+                        {props.setup.toe.frontRight+"º"}
                     </text>
                     <text className="cls-5" transform="translate(0 140.95)">
                         <tspan className="cls-6">{"C"}</tspan>
@@ -73,9 +78,7 @@ const TopView: React.FC<{}> = props => {
                         </tspan>
                     </text>
                     <text className="cls-5" transform="translate(.43 423.73)">
-                        <tspan className="cls-6">{"C"}</tspan>
-                        <tspan x={6.88} y={0}>
-                            {"amber BL"}
+                        <tspan className="cls-6">{"Camber BL"}
                         </tspan>
                     </text>
                     <text className="cls-5" transform="translate(483.86 423.73)">
@@ -105,9 +108,14 @@ const TopView: React.FC<{}> = props => {
 }
 
 export const AssettoPage = () => {
+    const [setup, setSetup] = useState<Setup | undefined>(undefined);
+    useEffect(() => {
+        // Todo only debug, need to change it with a real date for the setup
+        getSetup(Timestamp.fromDate(new Date())).then(setSetup);
+    }, []);
     return <div className="h-screen w-screen flex flex-col">
         <div className="w-3/4 h-2/3 mx-auto">
-            <TopView/>
+            {setup && <TopView setup={setup}/>}
         </div>
     </div>
 }
