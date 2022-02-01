@@ -3,6 +3,7 @@ import { LoginPage } from './pages/Login.page';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { Home } from './pages/Home.page';
+import { AssettoPage } from './pages/Assetto.page';
 
 function App() {
   // Returns 
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<Home/>} />
+          <Route path="assetto" element={<AssettoPage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
