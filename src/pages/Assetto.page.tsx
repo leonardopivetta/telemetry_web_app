@@ -1,4 +1,4 @@
-import { Setup } from "../types/Setup"
+import { Setup, TyresValues } from "../types/Setup"
 import { useEffect, useState } from "react"
 import { getSetup } from "../firebase/firestore"
 import { Timestamp } from "firebase/firestore"
