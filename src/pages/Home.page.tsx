@@ -3,6 +3,7 @@ import { BigButton } from "../components/bigButton"
 import logo from "../assets/logo.png"
 import { getSessions } from "../firebase/firestore"
 import { Session } from "../types/Session"
+import { getUser } from "../firebase/firebase"
 
 /** 
  * @param setSearc The function for updating the search value
@@ -85,7 +86,9 @@ const RightSection = () => {
               const sessions = await getSessions();
               console.log(sessions);
             }}></BigButton>
-            <BigButton name="realtime 2" onClick={()=>{}}></BigButton>
+            <BigButton name="realtime 2" onClick={()=>{
+                getUser();
+            }}></BigButton>
             <BigButton name="realtime 3" onClick={()=>{}}></BigButton>
         </div>
         <div className="mb-5 mt-3">
