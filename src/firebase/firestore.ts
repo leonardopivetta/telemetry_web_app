@@ -1,4 +1,4 @@
-import { collection, getDocs, limit, orderBy, query, QuerySnapshot, Timestamp, where } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, Timestamp, where } from "firebase/firestore";
 import { Session } from "../types/Session";
 import { Setup } from "../types/Setup";
 import { firestore } from "./firebase";
