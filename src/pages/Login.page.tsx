@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { login } from "../firebase/firebase";
-import { useAuth } from "../hooks/useAuth";
 import {useInput} from "../hooks/useInput"
 
 /** LoginPage react component  */
