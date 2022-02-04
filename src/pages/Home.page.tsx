@@ -4,6 +4,8 @@ import logo from "../assets/logo.png"
 import { getSessions } from "../firebase/firestore"
 import { Session } from "../types/Session"
 import { getUser } from "../firebase/firebase"
+import { User } from "../types/User"
+import { useNavigate } from "react-router-dom"
 
 /** 
  * @param setSearc The function for updating the search value
@@ -80,6 +82,11 @@ const LeftSection = () => {
  */
 
 const RightSection = () => {
+    const [user, setUser] = useState<User | undefined>(undefined);
+    useEffect(() => {
+        getUser()?.then(setUser);
+    }, []);
+    const navigate = useNavigate();
     return <div className="mx-auto w-full max-w-full h-full px-5 flex flex-col">
         <div className="space-y-5 mt-6 flex-grow flex flex-col overflow-y-auto px-3 overflow-x-clip">
             <BigButton name="realtime" onClick={async ()=>{
@@ -94,6 +101,11 @@ const RightSection = () => {
         <div className="mb-5 mt-3">
             <img src={logo} alt="Eagle logo" className="w-2/3 mx-auto my-auto"/>
         </div>
+        {
+            user?.admin && <BigButton name="admin" onClick={()=> {
+                navigate('/admin')
+            }}></BigButton>
+        }
     </div>
 }
 

@@ -19,26 +19,34 @@ const login = (email: string, password: string) => {
     return signInWithEmailAndPassword(auth, email, password)
 }
 
+/** Logut of the user from Firebase auth */
 const logout = () => {
     auth.signOut();
 }
 
-const getUser = () => {
-    return auth.currentUser?.getIdTokenResult().then(res => {
-        const out: User = {
-            user_id: auth.currentUser!.uid ?? "",
-            email: auth.currentUser!.email ?? "",
-            name: auth.currentUser!.displayName ?? "",
-            email_verified: auth.currentUser!.emailVerified,
-            setup_edit: res.claims["setup-edit"] as unknown as boolean ?? false
-        };
-        console.log(out);
-        return out;
-    }).catch(err => {
-        console.error(err);
+/**
+ * @returns {Promise<User | undefined>} the user data from Firestore Auth
+ */
+const getUser = async () => {
+    // Gets the user claims from Firebase Auth and returns the data wrapped in the User structure
+    try{
+        const tokenResult = await auth.currentUser?.getIdTokenResult()
+        if(tokenResult){
+            const out: User = {
+                user_id: auth.currentUser!.uid ?? "",
+                email: auth.currentUser!.email ?? "",
+                name: auth.currentUser!.displayName ?? "",
+                email_verified: auth.currentUser!.emailVerified,
+                setup_edit: tokenResult.claims["setup-edit"] as unknown as boolean ?? false,
+                admin: tokenResult.claims["admin"] as unknown as boolean ?? false
+            };
+            return out;
+        }
+    }catch(e){ 
+        console.error(e);
         return undefined;
-    })
-}
+    };
+};
 
 const firestore = getFirestore();
 
