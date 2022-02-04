@@ -8,3 +8,7 @@ export interface User {
     // Admin privilege
     admin: boolean = false;
 }
+
+export enum LockedUserKeys  {"user_id"};
+
+export default User;
