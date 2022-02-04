@@ -3,7 +3,7 @@ const router = Router();
 const checkIfAuthenticatedAndAdmin = require("./middlewares/auth-middleware").checkIfAuthenticatedAndAdmin;
 const admin = require('firebase-admin')
 
-// Main route, returns the list of the users (requires authorization and admin privileges)
+// Returns the list of the users (requires authorization and admin privileges)
 router.get('/listUsers', checkIfAuthenticatedAndAdmin, async (_, res) => {
     await admin.auth().listUsers().then(users => {
         // Array of users to return to the client
@@ -15,6 +15,21 @@ router.get('/listUsers', checkIfAuthenticatedAndAdmin, async (_, res) => {
         });
         res.send(returnUsers);
     })
+});
+
+// Returns the information of the requested user (requires authorization and admin privileges)
+router.get('/user/:uid', checkIfAuthenticatedAndAdmin, async (req, res)=> {
+    const uid = req.params.uid;
+    return admin.auth().getUser(uid).then(user => {
+        // Return only the needed information
+        const outInformation = {
+            email: user.email,
+            emailVerified: user.emailVerified,
+            customClaims: user.customClaims,
+            displayName: user.displayName
+        }
+        res.send(outInformation);
+    });
 });
 
 exports.routes = router;

@@ -30,3 +30,14 @@ Returns the list of the users in the Firebase Auth server in the form
    "uid": "string"
 }
 ```
+
+### /admin/user/:uid
+Returns the information about the user with the given uid in this format
+```json
+{
+   "email": "string",
+   "emailVerified": "boolean",
+   "customClaims": "object",
+   "displayName": "string"
+}
+```
