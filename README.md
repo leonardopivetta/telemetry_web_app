@@ -13,7 +13,7 @@ Firebase emulators: `firebase emulators:start`
 > you can specify the import and export data folder with `--import=${path}` and `--export=${path}`
 
 ## Deploy
-To deploy just run `npm run build` and merge into the `main` branch
+To deploy just merge into the `main` branch
 
 ## Pull requests
 You can preview online the new release making a pull request to the main branch, it will create a temporary link for the preview of the site 
