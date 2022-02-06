@@ -14,7 +14,7 @@ function App() {
   // Function to be called to check if the user is admin
   const callbackAdmin = () =>{
     getUser().then(res =>{
-      setIsAdmin(res?.admin ?? false);
+      setIsAdmin(res?.customClaims.admin ?? false);
     })
   }
 

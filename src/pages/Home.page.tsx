@@ -102,7 +102,7 @@ const RightSection = () => {
             <img src={logo} alt="Eagle logo" className="w-2/3 mx-auto my-auto"/>
         </div>
         {
-            user?.admin && <BigButton name="admin" onClick={()=> {
+            user?.customClaims.admin && <BigButton name="admin" onClick={()=> {
                 navigate('/admin')
             }}></BigButton>
         }
