@@ -22,7 +22,7 @@ Just run with `node index.js`
 It will throw an 401 (unauthorized) error if the request is from someone that isn't logged in, doesn't have the custom claim `"admin"` set to `true` or if you don't pass the `tokenId` in the header of the request (`authorization: 'Bearer ${tokenID}'` for example).
 
 # Endpoints
-### /admin/listUsers
+### GET /admin/listUsers
 Returns the list of the users in the Firebase Auth server in the form 
 ```json 
 {
@@ -31,7 +31,7 @@ Returns the list of the users in the Firebase Auth server in the form
 }
 ```
 
-### /admin/user/:uid
+### GET /admin/user/:uid
 Returns the information about the user with the given uid in this format
 ```json
 {
@@ -41,3 +41,8 @@ Returns the information about the user with the given uid in this format
    "displayName": "string"
 }
 ```
+
+### POST /admin/user/:uid
+Sets the custom claims to with the passed json object.
+
+Returns "done" or the error.

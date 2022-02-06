@@ -32,4 +32,9 @@ router.get('/user/:uid', checkIfAuthenticatedAndAdmin, async (req, res)=> {
     });
 });
 
+router.post('/user/:uid/', checkIfAuthenticatedAndAdmin, async (req, res) => {
+    const uid = req.params.uid;
+    return admin.auth().setCustomUserClaims(uid, req.body).then(()=>res.send("done")).catch(e => res.status(400).send(e));
+});
+
 exports.routes = router;
