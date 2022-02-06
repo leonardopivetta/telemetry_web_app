@@ -9,6 +9,9 @@ const adminRoutes = require('./admin.routes').routes;
 // Cors enable
 app.use(cors());
 
+// Json middleware
+app.use(express.json());
+
 // Routes defined in the router file
 app.use("/admin/", adminRoutes);
 
