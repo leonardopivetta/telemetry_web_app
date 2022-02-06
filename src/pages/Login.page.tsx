@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { login } from "../firebase/firebase";
-import {useInput} from "../hooks/useInput"
+import { useInput } from "../hooks/useInput"
 
 /** LoginPage react component  */
 export const LoginPage = () => {
     const [email, emailChange] = useInput();
     const [password, passwordChange] = useInput();
-    const [error, setError] = useState<string|null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     // Handles the submit of the form
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -15,25 +15,43 @@ export const LoginPage = () => {
         // Removes any previous error
         setError(null);
         // Tryies the login and if it fails, it sets the error
-        login(email,password).catch(e => setError(e.message));
+        login(email, password).catch(e => setError(e.message));
     };
 
-    return <div className="h-screen flex flex-col container mx-auto justify-center">
-        {error && <div className="bg-red-500 my-2 text-white p-2 rounded-3xl mx-auto w-1/3 text-center font-bold">{error}</div>}
-        <div className="border border-white py-10 rounded-3xl w-1/3 md:w-1/2 mx-auto px-20">
-            <h1 className="text-3xl text-center mb-5 ">Login</h1>
-            <form className="flex flex-col mx-auto" onSubmit={onFormSubmit}>
-                <div className="flex">
-                    <div className="flex flex-col mr-5 space-y-2">
-                        <label className="text-lg py-2">Email:</label>
-                        <label className="text-lg py-2">Password:</label>
+    return <div className="h-screen flex flex-col container mx-auto">
+        <div className="border border-white py-5 rounded-3xl w-full md:w-2/3 mx-auto px-20 my-auto">
+            <h1 className="text-3xl text-center">Login</h1>
+            <div className="md:flex md:items-center mb-6">
+                <div className="md:w-1/4"></div>
+                <div className="md:w-3/4">
+                    {error && <div className="bg-red-500 my-2 text-white p-2 rounded-3xl mx-auto w-full text-center font-bold">{error}</div>}
+                </div>
+            </div>
+            <form className="w-full mb-2 mt-4" onSubmit={onFormSubmit}>
+                <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/4">
+                        <label htmlFor="email" className="block pr-4 text-lg md:text-right mb-1 md:mb-0">Email:</label>
                     </div>
-                    <div className="flex flex-col flex-grow space-y-2 ">
-                        <input type="text" name="email" id="email" onChange={emailChange} className="flex-grow rounded-3xl text-black p-2" />
-                        <input type="password" name="password" id="pwd" onChange={passwordChange} className="flex-grow rounded-3xl text-black p-2" />
+                    <div className="md:w-3/4">
+                        <input type="text" onChange={emailChange} id="email" className="rounded-3xl text-black p-2 w-full leading-tight" placeholder="Email" />
                     </div>
                 </div>
-                <input className="border border-white rounded-3xl mt-5 py-2 hover:text-black hover:bg-white duration-200" type="submit" value={"Invia"}></input>
+                <div className="md:flex md:items-center mb-6">
+                    <div className="md:w-1/4">
+                        <label htmlFor="email" className="block pr-4 text-lg md:text-right mb-1 md:mb-0">Password:</label>
+                    </div>
+                    <div className="md:w-3/4">
+                        <input type="password" onChange={passwordChange} id="email" className="rounded-3xl text-black p-2 w-full leading-tight" placeholder="Password" />
+                    </div>
+                </div>
+                <div className="md:flex md:items-center">
+                    <div className="md:w-1/4"></div>
+                    <div className="md:w-3/4">
+                        <button className="hover:bg-white leading-tight hover:text-black border font-bold text-lg py-2 px-4 rounded-3xl w-full duration-200" type="submit" >
+                            Login
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
