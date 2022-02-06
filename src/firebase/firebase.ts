@@ -38,7 +38,7 @@ const getUser = async () => {
                 name: auth.currentUser!.displayName ?? "",
                 email_verified: auth.currentUser!.emailVerified,
                 customClaims: {
-                    setup_edit: tokenResult.claims["setup-edit"] as unknown as boolean ?? false,
+                    setup_edit: tokenResult.claims["setup_edit"] as unknown as boolean ?? false,
                     admin: tokenResult.claims["admin"] as unknown as boolean ?? false
                 }
             };
