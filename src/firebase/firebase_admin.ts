@@ -28,7 +28,7 @@ const fullPath = (path: string) => {
  */
 const adminGetRequest = async (path: string, options?: AxiosRequestConfig) => {
     // Gets the tokenId from the currentUser
-    const tokenID = await auth.currentUser?.getIdToken();
+    const tokenID = await auth.currentUser?.getIdToken(true);
     // If there is an issue with the idToken generation returns undefined
     if(!tokenID) return undefined;
     // Makes the GET request to the Firebase Admin Backend
@@ -49,7 +49,7 @@ const adminGetRequest = async (path: string, options?: AxiosRequestConfig) => {
  */
 const adminPostRequest = async (path: string, body?: object, options?: AxiosRequestConfig) => {
     // Gets the tokenId from the currentUser
-    const tokenID = await auth.currentUser?.getIdToken();
+    const tokenID = await auth.currentUser?.getIdToken(true);
     // If it's invalid or there is no currentUser it will return undefined
     if(!tokenID) return undefined;
     // Makes the POST request to the Firebase Admin Backend
