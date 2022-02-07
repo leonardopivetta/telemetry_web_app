@@ -1,9 +1,9 @@
-import { FunctionComponent, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { adminGetRequest, adminPostRequest } from "../firebase/firebase_admin";
 import User from "../types/User";
-import { ShowUser } from "./Admin.page";
 import _ from "lodash";
 import axios from "axios";
+import {useNavigate, useParams} from "react-router-dom"
 
 type LockedUserKeys = {
     [key in keyof User]?: boolean
@@ -16,7 +16,11 @@ const lockedKeys: LockedUserKeys = {
     name: true,
 }
 
-export const SingleUserPage: FunctionComponent<{user: ShowUser, close: Function}> =  props => {
+export const SingleUserPage = () => {
+
+    const params = useParams();
+    const uid = params.uid;
+    const navigate = useNavigate();
 
     const [user, setUser] = useState<User | undefined>(undefined);
     const [previousUser, setPreviousUser] = useState<User | undefined>(undefined);
@@ -37,12 +41,12 @@ export const SingleUserPage: FunctionComponent<{user: ShowUser, close: Function}
     useEffect(()=> {
         let source = axios.CancelToken.source();
         // Gets the user from the Firebase Admin Backend 
-        adminGetRequest(`user/${props.user.uid}`, {cancelToken: source.token}).then(response =>{
+        adminGetRequest(`user/${uid}`, {cancelToken: source.token}).then(response =>{
             const u: User = {
                 name: response["displayName"],
-                email: props.user.email,
+                email: response["email"],
                 email_verified: response["emailVerified"] ?? false,
-                user_id: props.user.uid,
+                user_id: uid ?? "",
                 customClaims: {
                     admin: response?.["customClaims"]?.["admin"] ?? false,
                     setup_edit: response?.["customClaims"]?.["setup_edit"] ?? false
@@ -52,10 +56,7 @@ export const SingleUserPage: FunctionComponent<{user: ShowUser, close: Function}
             setUser(u);
             setChanged(false);
         });
-        return () => {
-
-        }
-    }, [props.user]);
+    }, [uid]);
 
     const divFromObject = (el: object, ...prev: string[]) => {
         return Object.keys(el)
@@ -112,7 +113,7 @@ export const SingleUserPage: FunctionComponent<{user: ShowUser, close: Function}
                             {divFromObject(el[remappedKey], ...prev, remappedKey)}
                         </div>
                     default:
-                        return <div>{typeof el[remappedKey]}</div>
+                        return <div>Uninplemented {typeof el[remappedKey]}</div>
                 }
             })
     }
@@ -127,7 +128,7 @@ export const SingleUserPage: FunctionComponent<{user: ShowUser, close: Function}
         <div className="mt-2 mb-7">
             <button className={"py-2 w-full rounded-xl duration-200 bg-yellow-400 "+(changed ? "":"hidden")} disabled={false} 
                 onClick={()=>{
-                    saveAll().then(()=>props.close());
+                    saveAll().then(()=> navigate(-1));
                 }}>Save</button>
         </div>
     </div>
