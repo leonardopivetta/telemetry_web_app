@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {adminGetRequest} from "../firebase/firebase_admin";
 
 /** Interface for simplify the usage viewing model  */
-export interface ShowUser {
+interface ShowUser {
     email: string,
     uid: string,
 }
