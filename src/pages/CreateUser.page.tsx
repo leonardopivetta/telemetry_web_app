@@ -24,9 +24,8 @@ export const CreateUserPage = () => {
                 admin: data.admin
             }
         }).then(res => {
-            console.log(res);
             navigate("/admin");
-        }).catch(console.error);
+        }).catch(alert);
     }
 
     return <div className="w-screen h-screen">
@@ -56,7 +55,7 @@ export const CreateUserPage = () => {
                 </div>
                 <div className="w-full flex">
                     <label htmlFor="admin" className="w-1/5 text-right pr-2 my-auto">admin: </label>
-                    <input {...register("admin")} id="setup_edit" type="checkbox" className="w-4/5 rounded-3xl text-black p-2 leading-tight"/>
+                    <input {...register("admin")} id="admin" type="checkbox" className="w-4/5 rounded-3xl text-black p-2 leading-tight"/>
                 </div>
                 <div className="w-full flex">
                     <label htmlFor="setup_edit" className="w-1/5 text-right pr-2 my-auto h-5">setup_edit: </label>
