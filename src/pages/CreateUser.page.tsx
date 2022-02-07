@@ -10,11 +10,18 @@ type Inputs = {
     admin: boolean,
 }
 
+/**
+ * Page for creating a new user in the admin interface
+ * @returns JSX element of the create user page
+ */
 export const CreateUserPage = () => {
+    // Form hook
     const {register, handleSubmit } = useForm<Inputs>();
 
+    // Navigation hook for going back to the admin page at end
     const navigate = useNavigate();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
+        // Post the request to the Firebase Admin Backend
         adminPostRequest('user', {
             email: data.email,
             name: data.name,
@@ -24,6 +31,7 @@ export const CreateUserPage = () => {
                 admin: data.admin
             }
         }).then(res => {
+            // If everything went well, go back to the admin page
             navigate("/admin");
         }).catch(alert);
     }
