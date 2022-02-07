@@ -46,3 +46,15 @@ Returns the information about the user with the given uid in this format
 Sets the custom claims to with the passed json object.
 
 Returns "done" or the error.
+
+### POST /admin/user
+Creates the user, returns "done" or the error.
+Requires the data in this format:
+```json
+{
+   "email": "string",
+   "password": "string",
+   "name": "string",
+   "customClaims": "object"
+}
+```

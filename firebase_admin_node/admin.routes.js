@@ -32,9 +32,24 @@ router.get('/user/:uid', checkIfAuthenticatedAndAdmin, async (req, res)=> {
     });
 });
 
+// Sets the customClaims to the user with the corrisponding uid
 router.post('/user/:uid/', checkIfAuthenticatedAndAdmin, async (req, res) => {
     const uid = req.params.uid;
     return admin.auth().setCustomUserClaims(uid, req.body).then(()=>res.send("done")).catch(e => res.status(400).send(e));
+});
+
+// Creates the user
+router.post('/user/', checkIfAuthenticatedAndAdmin, async (req, res) => {
+    const data = req.body;
+    return admin.auth().createUser({
+        email: data.email,
+        password: data.password,
+        displayName: data.name
+    }).then(user => {
+        return admin.auth().setCustomUserClaims(user.uid,data.customClaims).then(()=>{
+            res.send("done");
+        }).catch(e => res.status(400).send("failed to set customClaims: " + e));
+    }).catch(e => res.status(400).send("failed to create user: " + e));
 });
 
 exports.routes = router;
