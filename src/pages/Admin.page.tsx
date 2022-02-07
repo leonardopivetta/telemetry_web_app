@@ -44,6 +44,10 @@ const TableUsers: FunctionComponent<{filter:string}> = props => {
     },[]);
     const navigate = useNavigate();
     return <div className="w-full h-full overflow-y-auto">
+            <div className="p-1 px-2 border my-2 rounded-3xl transform hover:scale-100 duration-100 scale-98 hover:bg-yellow-300 hover:border-yellow-300 hover:text-black text-center font-bold bg-gray-500"
+                onClick={() => navigate("/admin/createUser/")}>
+                New user
+            </div>
             {users.filter(e=> e.email.toLowerCase().includes(props.filter)).map(user => {
                     return <div className="p-1 px-2 border my-2 rounded-3xl transform hover:scale-100 duration-100 scale-98 hover:border-yellow-300"
                         onClick={()=> navigate("./showUser/"+user.uid)} key={user.uid}>
