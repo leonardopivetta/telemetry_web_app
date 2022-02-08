@@ -11,7 +11,7 @@ type Props = {
  */
 export const BigButton: React.FC<Props> = props => {
   return <div className='w-full bg-gradient-to-br from-yellow-400 to-orange-500 p-5
-            rounded-2xl shadow-md transform hover:scale-105 duration-200 hover:shadow-lg'
+            rounded-2xl shadow-md transform hover:scale-100 scale-98 duration-200 hover:shadow-lg'
             onClick={props.onClick}>
       <div className='text-white text-center text-lg'>  
         {props.name}
