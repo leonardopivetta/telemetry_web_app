@@ -89,9 +89,8 @@ const RightSection = () => {
     const navigate = useNavigate();
     return <div className="mx-auto w-full max-w-full h-full px-5 flex flex-col">
         <div className="space-y-5 mt-6 flex-grow flex flex-col overflow-y-auto px-3 overflow-x-clip">
-            <BigButton name="realtime" onClick={async ()=>{
-              const sessions = await getSessions();
-              console.log(sessions);
+            <BigButton name="Car setup" onClick={async ()=>{
+                navigate("/assetto")
             }}></BigButton>
             <BigButton name="realtime 2" onClick={()=>{
                 getUser();
