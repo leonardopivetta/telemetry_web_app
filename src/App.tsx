@@ -8,6 +8,7 @@ import { getUser } from './firebase/firebase';
 import { AdminPage } from './pages/Admin.page';
 import { SingleUserPage } from './pages/SingleUser.page';
 import { CreateUserPage } from './pages/CreateUser.page';
+import { UserPage } from './pages/User.page';
 
 function App() {
   // Hooks for the admin page interface
@@ -31,6 +32,7 @@ function App() {
         <Route path="/">
           <Route index element={<Home />} />
           <Route path="assetto" element={<AssettoPage />} />
+          <Route path="user" element={<UserPage/>}/>
           {
             isAdmin && <Route>
               <Route path="admin" element={<AdminPage />}/>

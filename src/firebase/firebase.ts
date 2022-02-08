@@ -1,6 +1,6 @@
 import {getApp, initializeApp} from 'firebase/app';
 import 'firebase/auth';
-import { connectAuthEmulator, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { connectAuthEmulator, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import 'firebase/firestore';
 import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
 import firebaseConfig from "../firebaseConfig.json";
@@ -21,7 +21,7 @@ const login = (email: string, password: string) => {
 
 /** Logut of the user from Firebase auth */
 const logout = () => {
-    auth.signOut();
+    return auth.signOut();
 }
 
 /**
@@ -50,6 +50,14 @@ const getUser = async () => {
     };
 };
 
+/** Sends the password reset mail 
+ * @param email the email where it has to be sent the email
+ * @returns {Promise<void>} the promise of the email send
+ */
+const forgotPassword = (email: string) => {
+    return sendPasswordResetEmail(auth, email);
+}
+
 const firestore = getFirestore();
 
 /** If is running in local enviroment uses the emulator */
@@ -59,4 +67,4 @@ if(window.location.hostname === "localhost"){
 }
 
 export default getApp();
-export {auth, login, logout, firestore, getUser};
+export {auth, login, logout, firestore, getUser, forgotPassword};
