@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { BigButton } from "../components/bigButton"
 import { forgotPassword, getUser, logout } from "../firebase/firebase"
 import User from "../types/User"
 
