@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.overlay-setup * {
+    position: absolute;
+    height: 19%;
+    width: 25.5%;
+    @apply bg-background;
+}
+
+.overlay-setup * * {
+    position: relative;
+    @apply w-full space-y-1;
+}
+
+
+.overlay-setup * * input[type="text"],input[type="number"] {
+    height: 100%;
+    @apply bg-white w-full text-black
+}
+
+
+.overlay-setup .top-left-tyre {
+    top: 7%;
+    left: 1%;
+}
+
+.overlay-setup .top-right-tyre {
+    top: 7%;
+    right: 1%;
+}
+
+.overlay-setup .bottom-left-tyre {
+    bottom: 37%;
+    left: 1%;
+}
+
+.overlay-setup .bottom-right-tyre {
+    bottom: 37%;
+    right: 1%;
+}
+
+.overlay-setup .center-pos {
+    left: 37%;
+    top: 40%;
+    height: 30%;
+    @apply bg-transparent flex flex-col items-center
+}
+
+.overlay-setup .center-pos .reset *{
+    height: 100%;
+}
+
+.overlay-setup .center-pos button {
+    @apply bg-yellow-400 text-black w-1/2 text-lg h-1/4 scale-98 hover:scale-100 duration-200 
+}

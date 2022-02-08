@@ -90,11 +90,9 @@ const RightSection = () => {
     return <div className="mx-auto w-full max-w-full h-full px-5 flex flex-col">
         <div className="space-y-5 mt-6 flex-grow flex flex-col overflow-y-auto px-3 overflow-x-clip">
             <BigButton name="Car setup" onClick={async ()=>{
-                navigate("/assetto")
+                navigate("/setup")
             }}></BigButton>
-            <BigButton name="realtime 2" onClick={()=>{
-                getUser();
-            }}></BigButton>
+            <BigButton name="realtime 2" onClick={()=>{}}></BigButton>
             <BigButton name="realtime 3" onClick={()=>{}}></BigButton>
         </div>
         <div className="mb-5 mt-3">

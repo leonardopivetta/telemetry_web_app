@@ -1,4 +1,4 @@
-import { collection, getDocs, limit, orderBy, query, Timestamp, where } from "firebase/firestore";
+import { addDoc, collection, getDocs, limit, orderBy, query, Timestamp, where } from "firebase/firestore";
 import { Session } from "../types/Session";
 import { Setup } from "../types/Setup";
 import { firestore } from "./firebase";
@@ -50,4 +50,9 @@ async function getSetup(date: Timestamp): Promise<Setup | undefined> {
     }).catch(error => {console.error(error); return undefined;});
 }
 
-export {getSessions, getSetup};
+async function pushSetup(setup: Setup): Promise<void> {
+    const setupPath = collection(firestore, "Setups");
+    return addDoc(setupPath, setup).then();
+}
+
+export {getSessions, getSetup, pushSetup};

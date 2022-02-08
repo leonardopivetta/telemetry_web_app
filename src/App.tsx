@@ -3,7 +3,7 @@ import { LoginPage } from './pages/Login.page';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 import { Home } from './pages/Home.page';
-import { AssettoPage } from './pages/Assetto.page';
+import { SetupPage } from './pages/SetupPage/Setup.page';
 import { getUser } from './firebase/firebase';
 import { AdminPage } from './pages/Admin.page';
 import { SingleUserPage } from './pages/SingleUser.page';
@@ -37,7 +37,7 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />
-          <Route path="assetto" element={<AssettoPage />} />
+          <Route path="setup" element={<SetupPage editable/>} />
           <Route path="user" element={<UserPage/>}/>
           {
             isAdmin && <Route>
