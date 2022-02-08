@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { login } from "../firebase/firebase";
 import { useInput } from "../hooks/useInput"
 
@@ -7,6 +8,8 @@ export const LoginPage = () => {
     const [email, emailChange] = useInput();
     const [password, passwordChange] = useInput();
     const [error, setError] = useState<string | null>(null);
+
+    const navigate = useNavigate();
 
     // Handles the submit of the form
     const onFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,12 +39,18 @@ export const LoginPage = () => {
                         <input type="text" onChange={emailChange} id="email" className="rounded-3xl text-black p-2 w-full leading-tight" placeholder="Email" />
                     </div>
                 </div>
-                <div className="md:flex md:items-center mb-6">
+                <div className="md:flex md:items-center mb-2">
                     <div className="md:w-1/4">
                         <label htmlFor="email" className="block pr-4 text-lg md:text-right mb-1 md:mb-0">Password:</label>
                     </div>
                     <div className="md:w-3/4">
                         <input type="password" onChange={passwordChange} id="email" className="rounded-3xl text-black p-2 w-full leading-tight" placeholder="Password" />
+                    </div>
+                </div>
+                <div className="md:flex md:items-center mb-2">
+                    <div className="md:w-1/4"></div>
+                    <div className="md:w-3/4 pl-2">
+                        <div onClick={()=>navigate("/passwordReset")} className="underline underline-offset-1">Forgot password? Click here</div>
                     </div>
                 </div>
                 <div className="md:flex md:items-center">

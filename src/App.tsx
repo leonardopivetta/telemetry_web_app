@@ -9,6 +9,7 @@ import { AdminPage } from './pages/Admin.page';
 import { SingleUserPage } from './pages/SingleUser.page';
 import { CreateUserPage } from './pages/CreateUser.page';
 import { UserPage } from './pages/User.page';
+import { ForgotPasswordPage } from './pages/ForgotPassword.page';
 
 function App() {
   // Hooks for the admin page interface
@@ -23,7 +24,12 @@ function App() {
 
   const userId = useAuth(callbackAdmin);
   // If the user is not logged in, show the login page
-  if (!userId) return <LoginPage />;
+  if (!userId) return <BrowserRouter>
+    <Routes>
+      <Route path="passwordReset" element={<ForgotPasswordPage/>}/>
+      <Route path="*" element={<LoginPage />} />
+    </Routes>
+  </BrowserRouter>
 
   // If the user is logged in access the routes
   return (
