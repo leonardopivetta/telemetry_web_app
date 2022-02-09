@@ -1,14 +1,14 @@
-import { addDoc, collection, doc, getDoc, getDocs, limit, orderBy, query, Timestamp, where } from "firebase/firestore";
+import { addDoc, doc, getDoc, getDocs, limit, orderBy, query, Timestamp, where } from "firebase/firestore";
 import { Dashboard } from "../types/Dashboard";
 import { Session } from "../types/Session";
 import { Setup } from "../types/Setup";
 import { firestore } from "./firebase";
+import { dashboardsPath, sessionsPath, setupsPath } from "./firestore_collections";
 
 /**
  * @returns {Promise<Session[]>} The sessions from Firestore in the collection "Sessions"
  */
 async function getSessions(): Promise<Array<Session>> {
-    const sessionsPath = collection(firestore, "Sessions");
     return getDocs(sessionsPath).then(querySnapshot =>{
         const sessions: Array<Session> = querySnapshot.docs.map(doc => {
             const session: Session = {
@@ -37,7 +37,6 @@ async function getSession(id: string): Promise<Session | undefined> {
         return Promise.resolve(JSON.parse(cachedSession) as Session);
     }
     // If there is no session cached, gets it from Firestore
-    const sessionsPath = collection(firestore, "Sessions");
     const docPath = doc(firestore, sessionsPath.path, id);
     return getDoc(docPath).then(doc => {
         if(doc.exists()){
@@ -62,10 +61,9 @@ async function getSession(id: string): Promise<Session | undefined> {
  * @returns the setup from Firestore in the collection "Setups" or undefined if not found
  */
 async function getSetup(date: Timestamp): Promise<Setup | undefined> {
-    const setupPath = collection(firestore, "Setups");
     // Gets the first setup update before the given date
     const queryLastUpdate = query(
-        setupPath, 
+        setupsPath, 
         where("date", "<=", date), 
         orderBy("date", "desc"),
         limit(1)
@@ -89,8 +87,7 @@ async function getSetup(date: Timestamp): Promise<Setup | undefined> {
  * @returns the promise of the setup added to Firestore
  */
 async function pushSetup(setup: Setup): Promise<void> {
-    const setupPath = collection(firestore, "Setups");
-    return addDoc(setupPath, setup).then();
+    return addDoc(setupsPath, setup).then();
 }
 
 /**
@@ -103,8 +100,7 @@ async function getDashboards(): Promise<Array<Dashboard>>{
         return Promise.resolve(JSON.parse(cachedDashboards) as Array<Dashboard>);
     }
     // If there are no dashboards stored in the cache gets them from Firestore
-    const dashboardPath = collection(firestore, "Dashboards");
-    return getDocs(dashboardPath).then(querySnapshot => {
+    return getDocs(dashboardsPath).then(querySnapshot => {
         const dashboards = querySnapshot.docs.map(doc => {
             return {
                 title: doc.get("title"),
