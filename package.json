@@ -24,7 +24,7 @@
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3006 react-scripts start",
     "build": "react-scripts build",
     "emulate": "concurrently --kill-others \"npm i && npm start\" \"nodemon ./firebase_admin_node/index.js\" \"firebase emulators:start --import=sample_data --export-on-exit=sample_data\""
   },
