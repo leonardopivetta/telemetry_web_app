@@ -1,9 +1,17 @@
 import { FunctionComponent, useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getDashboards, getSession } from "../firebase/firestore";
+import { useUser } from "../hooks/useUser";
 import { Dashboard } from "../types/Dashboard";
 import { Session } from "../types/Session";
 import { SetupPage } from "./SetupPage/Setup.page";
+
+const SetupTab: FunctionComponent = () => {
+    const user = useUser();
+    return <div>
+        <SetupPage framed editable={user?.customClaims.setup_edit}/>
+    </div>
+}
 
 export const DashboardsPage: FunctionComponent<{}> = props => {
     // Params from the matching id in the url
@@ -52,7 +60,7 @@ export const DashboardsPage: FunctionComponent<{}> = props => {
             <div className="flex-grow" id="dashboard-section">
             {active === -1 && <div>Loading dashboards</div>}
             {active !== -1 && active !== dashboards.length - 1 && <iframe src={buildLink(dashboards[active].link)} className="w-full h-full" title={dashboards[active].title} />}
-            {active === dashboards.length -1 && <SetupPage framed/>}
+            {active === dashboards.length -1 && <SetupTab/>}
             </div>
         </div>
     </div>
