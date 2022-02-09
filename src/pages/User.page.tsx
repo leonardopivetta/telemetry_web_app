@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react"
-import { forgotPassword, getUser, logout } from "../firebase/firebase"
-import User from "../types/User"
+import { forgotPassword, logout } from "../firebase/firebase"
+import { useUser } from "../hooks/useUser"
 
 export const UserPage = () => {
-    const [user, setUser] = useState<User | undefined>(undefined)
-
-    useEffect(()=>{
-        getUser().then(setUser);
-    }, []);
+    const user = useUser();
 
     return <div className="h-screen w-screen">
         {user && <div className="h-full container mx-auto py-3">
