@@ -6,6 +6,7 @@ import { Session } from "../types/Session"
 import { getUser } from "../firebase/firebase"
 import { User } from "../types/User"
 import { useNavigate } from "react-router-dom"
+import Popup from "reactjs-popup"
 
 /** 
  * @param setSearc The function for updating the search value
@@ -16,6 +17,16 @@ const SearchBar: FunctionComponent<{setSearch: Function}> = props => {
         <input type="text" className="bg-white w-full rounded-3xl text-black p-2 placeholder:text-gray-500 transform hover:scale-102 focus:scale-102 duration-200" 
             placeholder="Search..." onChange={e => props.setSearch(e.target.value)}/>
     </div>
+}
+
+const DonwloadPopup: FunctionComponent<{session: Session}> = props => {
+    return <Popup trigger={
+        <div>
+            Popup
+        </div>
+    } position={"left bottom"}>
+        <div className="p-2 h-20 w-200 bg-white text-black">download options TODO</div>
+    </Popup>
 }
 
 /**
@@ -54,7 +65,7 @@ const Table: FunctionComponent<{ data: Array<Session>, filterText: string }> = p
                         <td className="pl-2">{session.position.latitude}</td>
                         <td className="pl-2">{session.nLaps}</td>
                         <td className="pl-2">{minutes}:{('0'+seconds).slice(-2)}</td>
-                        <td className="pl-2">{/* TODO missing icon */}</td>
+                        <td className="pl-2"><DonwloadPopup session={session}/></td>
                     </tr>
                 })}
             </tbody>
