@@ -55,16 +55,16 @@ const Table: FunctionComponent<{ data: Array<Session>, filterText: string }> = p
                     const duration = session.to.seconds - session.from.seconds;
                     const minutes = Math.floor(duration / 60);
                     const seconds = duration % 60;
-                    return <tr className="py-1" key={session.id}
+                    return <tr className="py-1 hover:bg-yellow-400 group duration-300 rounded-3xl hover:rounded-none cursor-pointer" key={session.id}
                         onClick={()=>{
                             navigate(`/dash/${session.id}`);
                         }}>
-                        <td className="pl-2">{session.name}</td>
-                        <td className="pl-2">{session.from.toDate().toLocaleDateString("it-IT")}</td>
-                        <td className="pl-2">{session.position.latitude}</td>
-                        <td className="pl-2">{session.nLaps}</td>
-                        <td className="pl-2">{minutes}:{('0'+seconds).slice(-2)}</td>
-                        <td className="pl-2"><DonwloadPopup session={session}/></td>
+                        <td className="pl-2 group-hover:text-black">{session.name}</td>
+                        <td className="pl-2 group-hover:text-black">{session.from.toDate().toLocaleDateString("it-IT")}</td>
+                        <td className="pl-2 group-hover:text-black">{session.position.latitude}</td>
+                        <td className="pl-2 group-hover:text-black">{session.nLaps}</td>
+                        <td className="pl-2 group-hover:text-black">{minutes}:{('0'+seconds).slice(-2)}</td>
+                        <td className="pl-2 group-hover:text-black"><DonwloadPopup session={session}/></td>
                     </tr>
                 })}
             </tbody>
