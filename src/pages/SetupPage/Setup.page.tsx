@@ -14,14 +14,15 @@ import { useNavigate } from "react-router-dom";
 const TopView: React.FC<{ setup: Setup }> = props => {
   // Returns the text formatted by "key: value" of any key and corrisponding tyre
   const getTextFromTyre = (key: keyof TyresValues<any>) => {
-    return <tspan>
+    let nulls = 0;
+    return <tspan key={key}>
       {Object.keys(props.setup).map(k => {
         if (Object.keys(props.setup[k as keyof typeof props.setup]).includes(key)) {
-          return <tspan dy="1.2em" x={0}>
+          return <tspan dy="1.2em" x={0} key={key+k}>
             {`${k}: ${(props.setup[k as keyof typeof props.setup] as TyresValues<any>)[key as keyof TyresValues<any>]}`}
           </tspan>
         } else {
-          return <tspan></tspan>
+          return <tspan key={key+(nulls++)}></tspan>
         }
       })}
     </tspan>
