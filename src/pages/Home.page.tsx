@@ -24,6 +24,7 @@ const SearchBar: FunctionComponent<{setSearch: Function}> = props => {
  * @returns JSX element for the list of the sessions
  */
 const Table: FunctionComponent<{ data: Array<Session>, filterText: string }> = props => {
+    const navigate = useNavigate();
     return <div className="w-full hfull flex-grow border rounded-xl overflow-y-auto mb-5">
         <table className="table-auto border-collapse min-w-full max-h-full">
             <thead className="table-header-group text-left">
@@ -44,7 +45,10 @@ const Table: FunctionComponent<{ data: Array<Session>, filterText: string }> = p
                     const duration = session.to.seconds - session.from.seconds;
                     const minutes = Math.floor(duration / 60);
                     const seconds = duration % 60;
-                    return <tr className="py-1" key={session.id}>
+                    return <tr className="py-1" key={session.id}
+                        onClick={()=>{
+                            navigate(`/dash/${session.id}`);
+                        }}>
                         <td className="pl-2">{session.name}</td>
                         <td className="pl-2">{session.from.toDate().toLocaleDateString("it-IT")}</td>
                         <td className="pl-2">{session.position.latitude}</td>
