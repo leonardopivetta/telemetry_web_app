@@ -50,6 +50,10 @@ async function getSetup(date: Timestamp): Promise<Setup | undefined> {
     }).catch(error => {console.error(error); return undefined;});
 }
 
+/**
+ * @param setup The setup to add to Firestore
+ * @returns the promise of the setup added to Firestore
+ */
 async function pushSetup(setup: Setup): Promise<void> {
     const setupPath = collection(firestore, "Setups");
     return addDoc(setupPath, setup).then();
