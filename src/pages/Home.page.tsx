@@ -35,7 +35,7 @@ const DonwloadPopup: FunctionComponent<{session: Session}> = props => {
  */
 const Table: FunctionComponent<{ data: Array<Session>, filterText: string }> = props => {
     const navigate = useNavigate();
-    return <div className="w-full hfull flex-grow border rounded-xl overflow-y-auto mb-5">
+    return <div className="w-full hfull flex-grow border rounded-3xl overflow-y-auto mb-5">
         <table className="table-auto border-collapse min-w-full max-h-full">
             <thead className="table-header-group text-left">
                 <tr className="bg-slate-700 ">
