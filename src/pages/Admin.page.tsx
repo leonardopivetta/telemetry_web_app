@@ -31,15 +31,17 @@ const TableUsers: FunctionComponent<{filter:string}> = props => {
     useEffect(()=>{
         // Gets the users from the Firebase Admin Backend
         adminGetRequest("listUsers").then(res => {
+            let isMounted = true;
             try{
                 const showUsers = (res as Array<ShowUser>);
                 // Sorts the users by their email alphabetically
                 showUsers.sort((a,b)=> a.email.localeCompare(b.email));
                 // Shows the users in the table
-                setUsers(showUsers);
+                if(isMounted) setUsers(showUsers);
             }catch(e){
                 console.error(e);
             }
+            return ()=>{isMounted = false}
         })
     },[]);
     const navigate = useNavigate();

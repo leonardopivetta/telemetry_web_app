@@ -81,8 +81,12 @@ const LeftSection = () => {
     // Hook state for the list of the sessions
     const [data, setData] = useState<Array<Session>>([]);
     useEffect(() => {
+        let isMounted = true;
         // Get the list of the sessions from Firestore and update the state
-        getSessions().then(setData);
+        getSessions().then(res => {
+            if(isMounted) setData(res);
+        });
+        return () => {isMounted = false}
     }, []);
 
     return <div className="h-full flex flex-col pt-3">
@@ -100,7 +104,7 @@ const RightSection = () => {
     const navigate = useNavigate();
     return <div className="mx-auto w-full max-w-full h-full px-5 flex flex-col">
         <div className="space-y-5 mt-6 flex-grow flex flex-col overflow-y-auto px-3 overflow-x-clip">
-            <BigButton name="Car setup" onClick={async ()=>{
+            <BigButton name="Car setup" onClick={()=>{
                 navigate("/setup")
             }}></BigButton>
             <BigButton name="realtime 2" onClick={()=>{}}></BigButton>

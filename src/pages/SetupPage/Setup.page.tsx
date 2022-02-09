@@ -188,8 +188,12 @@ const EditOverlay: FunctionComponent<{ setup: Setup }> = props => {
 export const SetupPage: FunctionComponent<{ editable?: boolean, framed?: boolean}> = props => {
   const [setup, setSetup] = useState<Setup | undefined>(undefined);
   useEffect(() => {
+    let isMounted = true;
     // Todo only debug, need to change it with a real date for the setup
-    getSetup(Timestamp.fromDate(new Date())).then(setSetup);
+    getSetup(Timestamp.fromDate(new Date())).then(set => {
+      if(isMounted) setSetup(set)
+    });
+    return ()=>{isMounted = false}
   }, []);
   return <div className={ props.framed ? "h-full w-full" : "h-screen w-screen"}>
     <div className="w-3/4 h-2/3 mx-auto">

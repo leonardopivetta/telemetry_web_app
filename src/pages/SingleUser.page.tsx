@@ -40,6 +40,7 @@ export const SingleUserPage = () => {
 
 
     useEffect(()=> {
+        let isMounted = true;
         let source = axios.CancelToken.source();
         // Gets the user from the Firebase Admin Backend 
         adminGetRequest(`user/${uid}`, {cancelToken: source.token}).then(response =>{
@@ -53,10 +54,13 @@ export const SingleUserPage = () => {
                     setup_edit: response?.["customClaims"]?.["setup_edit"] ?? false
                 }
             };
-            setPreviousUser(_.cloneDeep(u));
-            setUser(u);
-            setChanged(false);
+            if(isMounted){
+                setPreviousUser(_.cloneDeep(u));
+                setUser(u);
+                setChanged(false);
+            }
         });
+        return ()=> {isMounted = false}
     }, [uid]);
 
     const divFromObject = (el: object, ...prev: string[]) => {

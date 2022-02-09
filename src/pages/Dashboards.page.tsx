@@ -31,13 +31,19 @@ export const DashboardsPage: FunctionComponent<{}> = props => {
     useEffect(() => {
         if (!id) return;
         // Gets the sessions from firestore
-        getSession(id).then(setSession)
+        let isMounted = true;
+        getSession(id).then(sess => {
+            if(isMounted) setSession(sess)
+        })
         // Gets the dashboards from firestore
         getDashboards().then(res => {
             // Adds a dashbord for the setup viewing page
             res = res.concat([{ title: "Setup", link: "" }]);
-            setDashboards(res);
-        }).then(() => setActive(0));
+            if(isMounted) setDashboards(res);
+        }).then(() => {
+            if(isMounted) setActive(0)
+        });
+        return () => {isMounted = false}
     }, [id]);
 
     // Assertion on the id

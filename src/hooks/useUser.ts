@@ -9,7 +9,11 @@ import User from "../types/User";
 export const useUser = () => {
     const [user, setUser] = useState<User | undefined>();
     useEffect(() => {
-        getUser().then(setUser);
+        let isMounted = true;
+        getUser().then(usr => {
+            if(isMounted) setUser(usr);
+        });
+        return ()=>{isMounted = false}
     }, [user]);
     return user;
 }
