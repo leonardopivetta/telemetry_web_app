@@ -2,7 +2,7 @@ import {getApp, initializeApp} from 'firebase/app';
 import 'firebase/auth';
 import { connectAuthEmulator, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import 'firebase/firestore';
-import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore';
+import { connectFirestoreEmulator, enableIndexedDbPersistence, getFirestore } from 'firebase/firestore';
 import firebaseConfig from "../firebaseConfig.json";
 import { User } from '../types/User';
 
@@ -65,6 +65,7 @@ if(window.location.hostname === "localhost"){
     connectAuthEmulator(auth, "http://localhost:9099");
     connectFirestoreEmulator(firestore, "localhost", 8080);
 }
+enableIndexedDbPersistence(firestore);
 
 export default getApp();
 export {auth, login, logout, firestore, getUser, forgotPassword};
