@@ -8,7 +8,7 @@ import { SetupPage } from "./SetupPage/Setup.page";
 
 const SetupTab: FunctionComponent = () => {
     const user = useUser();
-    return <div>
+    return <div className="">
         <SetupPage framed editable={user?.customClaims.setup_edit}/>
     </div>
 }
@@ -51,9 +51,9 @@ export const DashboardsPage: FunctionComponent<{}> = props => {
 
     return <div className="h-screen w-screen">
         <div className="container h-full mx-auto flex flex-col">
-            <div className="w-full flex overflow-x-auto" id="dashboard-list">
+            <div className="w-full flex" id="dashboard-list">
                 {dashboards.map((dashboard, index) => {
-                        return <div className={"p-2 px-5 m-2 rounded-3xl scale-98 hover:scale-100 duration-200 cursor-pointer " + (index === active ? "bg-yellow-400 scale-100" : "border")}
+                        return <div className={"p-2 px-5 m-2 rounded-3xl scale-98 hover:scale-100 duration-200 cursor-pointer select-none " + (index === active ? "bg-yellow-400 scale-100" : "border")}
                             onClick={() => {
                                 // On the click of the div the selected dashboard is set as active
                                 setActive(index);

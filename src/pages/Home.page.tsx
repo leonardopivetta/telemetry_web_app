@@ -55,7 +55,7 @@ const Table: FunctionComponent<{ data: Array<Session>, filterText: string }> = p
                     const duration = session.to.seconds - session.from.seconds;
                     const minutes = Math.floor(duration / 60);
                     const seconds = duration % 60;
-                    return <tr className="py-1 hover:bg-yellow-400 group duration-300 rounded-3xl hover:rounded-none cursor-pointer" key={session.id}
+                    return <tr className="py-1 hover:bg-yellow-400 group duration-300 rounded-3xl hover:rounded-none cursor-pointer select-none" key={session.id}
                         onClick={()=>{
                             navigate(`/dash/${session.id}`);
                         }}>

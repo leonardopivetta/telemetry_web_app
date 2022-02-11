@@ -13,7 +13,7 @@ export const BigButton: React.FC<Props> = props => {
   return <div className='w-full bg-gradient-to-br from-yellow-400 to-orange-500 p-5
             rounded-3xl shadow-md transform hover:scale-100 scale-98 duration-200 hover:shadow-lg'
             onClick={props.onClick}>
-      <div className='text-white text-center text-lg'>  
+      <div className='text-white text-center text-lg select-none'>  
         {props.name}
       </div>
     </div>
