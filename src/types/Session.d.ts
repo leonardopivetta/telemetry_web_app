@@ -13,4 +13,6 @@ export interface Session {
     nLaps: number,
     // Position of the session with GeoPoint
     position: GeoPoint,
+    // Position name
+    positionName?: string
 }

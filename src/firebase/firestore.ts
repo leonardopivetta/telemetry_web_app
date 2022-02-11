@@ -11,14 +11,8 @@ import { dashboardsPath, sessionsPath, setupsPath } from "./firestore_collection
 async function getSessions(): Promise<Array<Session>> {
     return getDocs(sessionsPath).then(querySnapshot =>{
         const sessions: Array<Session> = querySnapshot.docs.map(doc => {
-            const session: Session = {
-                id: doc.id,
-                from: doc.get("from"),
-                to: doc.get("to"),
-                name: doc.get("name"),
-                nLaps: doc.get("nLaps"),
-                position: doc.get("position")
-            };
+            const session: Session = doc.data() as Session;
+            session.id = doc.id;
             sessionStorage.setItem("session"+session.id, JSON.stringify(session));
             return session;
         });
@@ -40,14 +34,8 @@ async function getSession(id: string): Promise<Session | undefined> {
     const docPath = doc(firestore, sessionsPath.path, id);
     return getDoc(docPath).then(doc => {
         if(doc.exists()){
-            const session = {
-                id: doc.id,
-                from: doc.get("from"),
-                to: doc.get("to"),
-                name: doc.get("name"),
-                nLaps: doc.get("nLaps"),
-                position: doc.get("position")
-            };
+            const session = doc.data() as Session;
+            session.id = doc.id;
             sessionStorage.setItem("session/"+session.id, JSON.stringify(session));
             return session;
         }else{
@@ -73,11 +61,7 @@ async function getSetup(date: Timestamp): Promise<Setup | undefined> {
         if (querySnapshot.docs.length === 0) {
             return undefined;
         }
-        const setup: Setup = {
-            date: querySnapshot.docs[0].get("date"),
-            camber: querySnapshot.docs[0].get("camber"),
-            toe: querySnapshot.docs[0].get("toe")
-        };
+        const setup: Setup = querySnapshot.docs[0].data() as Setup;
         return setup;
     }).catch(error => {console.error(error); return undefined;});
 }
@@ -102,10 +86,7 @@ async function getDashboards(): Promise<Array<Dashboard>>{
     // If there are no dashboards stored in the cache gets them from Firestore
     return getDocs(dashboardsPath).then(querySnapshot => {
         const dashboards = querySnapshot.docs.map(doc => {
-            return {
-                title: doc.get("title"),
-                link: doc.get("link")
-            }
+            return doc.data() as Dashboard;
         });
         // Sets the dashboards in the cache
         sessionStorage.setItem("dashboards", JSON.stringify(dashboards));

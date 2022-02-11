@@ -61,7 +61,7 @@ const Table: FunctionComponent<{ data: Array<Session>, filterText: string }> = p
                         }}>
                         <td className="pl-2 group-hover:text-black">{session.name}</td>
                         <td className="pl-2 group-hover:text-black">{session.from.toDate().toLocaleDateString("it-IT")}</td>
-                        <td className="pl-2 group-hover:text-black">{session.position.latitude}</td>
+                        <td className="pl-2 group-hover:text-black">{session.positionName ?? `${session.position.latitude}, ${session.position.longitude}`}</td>
                         <td className="pl-2 group-hover:text-black">{session.nLaps}</td>
                         <td className="pl-2 group-hover:text-black">{minutes}:{('0'+seconds).slice(-2)}</td>
                         <td className="pl-2 group-hover:text-black"><DonwloadPopup session={session}/></td>
