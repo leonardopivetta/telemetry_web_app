@@ -11,6 +11,7 @@ import { CreateUserPage } from './pages/CreateUser.page';
 import { UserPage } from './pages/User.page';
 import { ForgotPasswordPage } from './pages/ForgotPassword.page';
 import { DashboardsPage } from './pages/Dashboards.page';
+import { CodePage } from './pages/Code.page';
 
 function App() {
   // Hooks for the admin page interface
@@ -41,6 +42,7 @@ function App() {
           <Route path="setup" element={<SetupPage editable/>} />
           <Route path="user" element={<UserPage/>}/>
           <Route path="dash/:id" element={<DashboardsPage/>}/>
+          <Route path="code" element={<CodePage/>}/>
           {
             isAdmin && <Route>
               <Route path="admin" element={<AdminPage />}/>
