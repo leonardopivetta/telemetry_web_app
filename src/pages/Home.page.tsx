@@ -113,11 +113,13 @@ const RightSection = () => {
         <div className="mb-5 mt-3">
             <img src={logo} alt="Eagle logo" className="w-2/3 mx-auto my-auto"/>
         </div>
+        <div className="mb-4">
         {
             user?.customClaims.admin && <BigButton name="admin" onClick={()=> {
                 navigate('/admin')
             }}></BigButton>
         }
+        </div>
     </div>
 }
 
