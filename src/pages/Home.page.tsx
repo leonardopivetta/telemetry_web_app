@@ -20,7 +20,7 @@ const SearchBar: FunctionComponent<{setSearch: Function}> = props => {
 
 const DonwloadPopup: FunctionComponent<{session: Session}> = props => {
     return <Popup trigger={
-        <div>
+        <div className="group-hover:text-black">
             Popup
         </div>
     } position={"left bottom"}>
