@@ -107,7 +107,7 @@ const RightSection = () => {
             <BigButton name="Car setup" onClick={()=>{
                 navigate("/setup")
             }}></BigButton>
-            <BigButton name="realtime 2" onClick={()=>{}}></BigButton>
+            <BigButton name="Local server" onClick={()=>{navigate("/local")}}></BigButton>
             <BigButton name="realtime 3" onClick={()=>{}}></BigButton>
         </div>
         <div className="mb-5 mt-3">

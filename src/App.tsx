@@ -12,6 +12,7 @@ import { UserPage } from './pages/User.page';
 import { ForgotPasswordPage } from './pages/ForgotPassword.page';
 import { DashboardsPage } from './pages/Dashboards.page';
 import { CodePage } from './pages/Code.page';
+import { LocalServerPage } from './pages/LocalServer.page';
 
 function App() {
   // Hooks for the admin page interface
@@ -43,6 +44,7 @@ function App() {
           <Route path="user" element={<UserPage/>}/>
           <Route path="dash/:id" element={<DashboardsPage/>}/>
           <Route path="code" element={<CodePage/>}/>
+          <Route path="local" element={<LocalServerPage/>}/>
           {
             isAdmin && <Route>
               <Route path="admin" element={<AdminPage />}/>
