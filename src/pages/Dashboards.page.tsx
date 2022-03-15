@@ -6,7 +6,7 @@ import { Dashboard } from "../types/Dashboard";
 import { Session } from "../types/Session";
 import { SetupPage } from "./SetupPage/Setup.page";
 
-const SetupTab: FunctionComponent = () => {
+export const SetupTab: FunctionComponent = () => {
     const user = useUser();
     return <div className="">
         <SetupPage framed editable={user?.customClaims.setup_edit}/>
@@ -27,6 +27,11 @@ export const DashboardsPage: FunctionComponent<{}> = props => {
     const buildLink = (link: string): string => {
         return `${link}?orgId=1&from=${session!.from.seconds * 1000}&to=${session!.to.seconds * 1000}&kiosk`;
     }
+
+    useEffect(()=> {
+        const img = new Image();
+        img.src = "../assets/top_view.png"
+    }, []);
 
     useEffect(() => {
         if (!id) return;
