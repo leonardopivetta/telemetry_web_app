@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form"
 
+
 type Inputs = {
+    /// Network address of the local server
     address: string;
 }
 
+/**
+ * @returns JSX element of the Local Server page
+ */
 export const LocalServerPage = () => {
     const { register, handleSubmit } = useForm<Inputs>();
 
@@ -14,6 +19,10 @@ export const LocalServerPage = () => {
         setAddress(data.address);
     }
 
+    /**
+     * @param address address of the local server
+     * @returns The link to the local server
+     */
     const buildLink = (address: string) => {
         if (!address.includes("http://")) {
             address = "http://" + address;
