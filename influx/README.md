@@ -1,0 +1,14 @@
+# ENV file
+
+Place in the current directory an `.env` file with the following variables:
+
+``` 
+DOCKER_INFLUXDB_INIT_MODE=setup
+DOCKER_INFLUXDB_INIT_USERNAME=admin
+DOCKER_INFLUXDB_INIT_PASSWORD=${PASSWORD}
+DOCKER_INFLUXDB_INIT_ORG=eagle
+DOCKER_INFLUXDB_INIT_BUCKET=main_bucket
+DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${TOKEN}
+```
+
+Sample token = `QR3RPdAuItz8NTusIvmvJcw7ST8iIUtvtDKXKfwN9mQYASEW7ZAcqMVb32oHu-My5RySu2BckKgz-EGNjM4ROw==`

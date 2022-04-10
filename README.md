@@ -17,3 +17,7 @@ To deploy just merge into the `main` branch
 
 ## Pull requests
 You can preview online the new release making a pull request to the main branch, it will create a temporary link for the preview of the site 
+
+## Spawn servers
+- Place the `.env` files in `./grafana` and `./influx` following the README in each folder
+- `docker compose up`

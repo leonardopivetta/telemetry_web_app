@@ -1,0 +1,38 @@
+services:
+
+  influx:
+    image: influxdb:2.1
+    env_file: 
+      - ./influx/.env
+    ports:
+      - 8086:8086
+
+  grafana:
+    image: grafana/grafana-oss:8.2.6
+    volumes:
+      # [ PROVIDERS ]
+      # [[ DASHBOARDS ]]
+      # Dashboards loader from folder `./grfana/dashboards/`
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      # Binds the folder containing all the dashboards saved as jsons
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+
+      # [[ DATASOURCES ]]
+      # Datasource bind to invfluxdb container
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+
+      # [ CONFIG ]
+      # Custom config for grafana
+      - ./grafana/conf/grafana.ini:/etc/grafana/grafana.ini
+    env_file:
+      # GF_SECURITY_ADMIN_USER adn GF_SECURITY_ADMIN_PASSWORD
+      - ./grafana/.env
+      # DOCKER_INFLUXDB_INIT_TOKEN for the authentication
+      - ./influx/.env
+    environment:
+      # List of all the external plugins to be installed (comma separeted)
+      - GF_INSTALL_PLUGINS=pr0ps-trackmap-panel
+    ports:
+      - 3333:3000
+    depends_on:
+      - influx
