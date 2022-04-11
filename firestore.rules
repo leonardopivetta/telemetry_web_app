@@ -1,8 +1,26 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isSigned(){
+      return request.auth.uid != null;
+    }
+
+    function isAdmin(){
+      return isSigned() && request.auth.token.admin;
+    }
+    
+    function isSetupEdit(){
+      return isAdmin() || (isSigned() && request.auth.token.setup_edit);
+    }
+
+  
+    match /Setups/{setup} {
+      allow write: if isSetupEdit();
+    }
+
     match /{document=**} {
-      allow read, write: if request.auth != null;
+      allow read: if isSigned();
+      allow write: if isAdmin();
     }
   }
 }

@@ -7,20 +7,28 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.0.3",
+    "@types/lodash": "^4.14.178",
+    "@types/mathjs": "^9.4.2",
     "@types/node": "^16.11.17",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
+    "@uiw/react-textarea-code-editor": "^1.4.13",
+    "axios": "^0.25.0",
+    "concurrently": "^7.0.0",
+    "firebase": "^9.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.26.1",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.0",
+    "reactjs-popup": "^2.0.5",
     "typescript": "^4.5.4",
     "web-vitals": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3006 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "emulate": "concurrently --kill-others \"npm i && npm start\" \"USE_EMULATORS=true nodemon ./firebase_admin_node/index.js\" \"firebase emulators:start --import=sample_data --export-on-exit=sample_data\""
   },
   "eslintConfig": {
     "extends": [
