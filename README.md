@@ -3,13 +3,13 @@
 This is the telemetry web app for the E-agle cars.
 
 ## Test and run locally
-For the full emulation setup run `npm run emulate`
+For the full emulation setup run `npm run emulate` (requires firebase CLI [Install instructions](https://firebase.google.com/docs/cli))
 
 React app server: `npm run start`
 
 Firebase admin SDK server: `node ./firebase_admin_node/index.js`
 
-Firebase emulators: `firebase emulators:start` 
+Firebase emulators: `firebase emulators:start` (requires firebase CLI [Install instructions](https://firebase.google.com/docs/cli))
 > you can specify the import and export data folder with `--import=${path}` and `--export=${path}`
 
 ## Deploy
